@@ -1,0 +1,81 @@
+syntax = "proto3";
+
+package order;
+option go_package="./order";
+
+service Order {
+  rpc Ping       (Request)            returns(Response);
+  rpc CreateOrder(CreateOrderRequest) returns(CreateOrderResponse);
+  rpc GetOrder   (GetOrderRequest)    returns(GetOrderResponse);
+  rpc UpdateOrder(UpdateOrderRequest) returns(UpdateOrderResponse);
+
+  rpc CreateOrderGoods       (CreateOrderGoodsRequest)       returns(CreateOrderGoodsResponse);
+  rpc GetOrderGoodsByOrderID (GetOrderGoodsByOrderIDRequest) returns(GetOrderGoodsByOrderIDResponse);
+}
+
+message Request {
+  string ping = 1;
+}
+
+message Response {
+  string pong = 1;
+}
+
+message OrderInfo {
+  int64  ID        = 10;
+  int64  UserID    = 20;
+  string OrderNO   = 30;
+  string Amount    = 40;
+  int64  State     = 50;
+  int64  CreatedAt = 60;
+}
+
+message OrderGoodsInfo {
+  int64  ID        = 10;
+  int64  OrderID   = 20;
+  int64  GoodsID   = 30;
+  string UnitPrice = 40;
+  string GoodName  = 50;
+  int64  Num       = 60;
+}
+
+message CreateOrderRequest {
+  OrderInfo Info = 10;
+}
+
+message CreateOrderResponse {
+  OrderInfo Info = 10;
+}
+
+message GetOrderRequest {
+  int64 ID = 10;
+}
+
+message GetOrderResponse {
+  OrderInfo Info = 10;
+}
+
+message UpdateOrderRequest {
+  OrderInfo Info = 10;
+}
+
+message UpdateOrderResponse {
+  OrderInfo Info = 10;
+}
+
+message CreateOrderGoodsRequest {
+  repeated OrderGoodsInfo Infos = 10;
+}
+
+message CreateOrderGoodsResponse {
+  repeated OrderGoodsInfo Infos = 10;
+}
+
+message GetOrderGoodsByOrderIDRequest {
+  int64 OrderID = 10;
+}
+
+message GetOrderGoodsByOrderIDResponse {
+  repeated OrderGoodsInfo Infos = 10;
+}
+
